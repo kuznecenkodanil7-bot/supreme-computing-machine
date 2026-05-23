@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "moderation_hitbox_demo",
+  "version": "${version}",
+  "name": "Moderation Hitbox Demo",
+  "description": "Safe client-side moderation demo: changes only visual render bounding boxes, not combat/reach/collision hitboxes.",
+  "authors": ["Raymond"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.example.moderationhitbox.ModerationHitboxDemoClient"
+    ]
+  },
+  "mixins": [
+    "moderation_hitbox_demo.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*",
+    "fabric-key-binding-api-v1": "*",
+    "fabric-lifecycle-events-v1": "*"
+  }
+}
