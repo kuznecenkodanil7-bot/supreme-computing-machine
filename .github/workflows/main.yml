@@ -1,4 +1,4 @@
-name: Build Fabric Mod
+name: Build Fabric Mod (Safe)
 
 on:
   push:
@@ -20,11 +20,22 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Grant execute permission for Gradlew
-      run: chmod +x gradlew
+    - name: Use Gradle wrapper if available
+      run: |
+        if [ -f "./gradlew" ]; then
+          chmod +x ./gradlew
+          echo "Using Gradle wrapper"
+          export GRADLE_CMD=./gradlew
+        else
+          echo "Gradle wrapper not found, using system gradle"
+          sudo apt-get update
+          sudo apt-get install -y gradle
+          export GRADLE_CMD=gradle
+        fi
+        echo "GRADLE_CMD=$GRADLE_CMD" >> $GITHUB_ENV
 
     - name: Build mod
-      run: ./gradlew build
+      run: $GRADLE_CMD build
 
     - name: Upload JAR artifact
       uses: actions/upload-artifact@v4
